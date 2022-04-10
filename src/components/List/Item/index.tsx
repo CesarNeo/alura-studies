@@ -1,12 +1,12 @@
+import { Task } from '../../../types/task'
 import style from '../List.module.scss'
 
-interface ItemProps {
-  tarefa: string
-  tempo: string
-}
+type ItemProps = Task
 
 export function Item(props: ItemProps) {
-  const { tarefa, tempo } = props
+  const { tarefa, tempo, completed, select, id } = props
+
+  console.log(completed, select, id)
 
   return (
     <li className={style.item}>
