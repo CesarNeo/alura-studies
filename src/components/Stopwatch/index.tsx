@@ -1,9 +1,12 @@
+import { timeToSeconds } from '../../common/utils/time'
 import { Button } from '../Button'
 import { Clock } from './Clock'
 
 import style from './Stopwatch.module.scss'
 
 export function Stopwatch() {
+  console.log(timeToSeconds('01:01:01'))
+
   return (
     <div className={style.cronometro}>
       <p className={style.titulo}>Escolha um card e inicie o cronômetro</p>
