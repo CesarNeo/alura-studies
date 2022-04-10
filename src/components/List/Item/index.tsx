@@ -10,7 +10,7 @@ export function Item(props: ItemProps) {
 
   return (
     <li
-      className={style.item}
+      className={`${style.item} ${select && style.itemSelecionado}`}
       onClick={() =>
         selectTask({
           id,

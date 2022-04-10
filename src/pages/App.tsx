@@ -12,6 +12,12 @@ function App() {
 
   function selectTask(selectedTask: Task) {
     setSelect(selectedTask)
+    setTarefas(oldTasks =>
+      oldTasks.map(task => ({
+        ...task,
+        select: task.id === selectedTask.id ? true : false
+      }))
+    )
   }
 
   return (
