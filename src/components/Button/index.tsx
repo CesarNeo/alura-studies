@@ -6,7 +6,11 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 export function Button(props: ButtonProps) {
-  const { children } = props
+  const { children, ...rest } = props
 
-  return <button className={style.botao}>{children}</button>
+  return (
+    <button {...rest} className={style.botao}>
+      {children}
+    </button>
+  )
 }

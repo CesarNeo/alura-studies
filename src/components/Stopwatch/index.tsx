@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { timeToSeconds } from '../../common/utils/time'
 import { Task } from '../../types/task'
 import { Button } from '../Button'
@@ -20,17 +20,25 @@ export function Stopwatch(props: StopwatchProps) {
     }
   }, [select?.tempo])
 
+  const handleRegressive = useCallback((time: number) => {
+    setTimeout(() => {
+      if (time > 0) {
+        setTime(time - 1)
+
+        return handleRegressive(time - 1)
+      }
+    }, 1000)
+  }, [])
+
   return (
     <div className={style.cronometro}>
-      <p className={style.titulo}>
-        Escolha um card e inicie o cronômetro tempo: {time}
-      </p>
+      <p className={style.titulo}>Escolha um card e inicie o cronômetro</p>
 
       <div className={style.relogioWrapper}>
-        <Clock />
+        <Clock time={time} />
       </div>
 
-      <Button>Começar</Button>
+      <Button onClick={() => handleRegressive(time)}>Começar</Button>
     </div>
   )
 }
