@@ -8,10 +8,11 @@ import style from './Stopwatch.module.scss'
 
 interface StopwatchProps {
   select: Task | undefined
+  finishTask: () => void
 }
 
 export function Stopwatch(props: StopwatchProps) {
-  const { select } = props
+  const { select, finishTask } = props
   const [time, setTime] = useState<number>(0)
 
   useEffect(() => {
@@ -20,15 +21,20 @@ export function Stopwatch(props: StopwatchProps) {
     }
   }, [select?.tempo])
 
-  const handleRegressive = useCallback((time: number) => {
-    setTimeout(() => {
-      if (time > 0) {
-        setTime(time - 1)
+  const handleRegressive = useCallback(
+    (time: number) => {
+      setTimeout(() => {
+        if (time > 0) {
+          setTime(time - 1)
 
-        return handleRegressive(time - 1)
-      }
-    }, 1000)
-  }, [])
+          return handleRegressive(time - 1)
+        } else {
+          finishTask()
+        }
+      }, 1000)
+    },
+    [finishTask]
+  )
 
   return (
     <div className={style.cronometro}>

@@ -10,19 +10,26 @@ export function Item(props: ItemProps) {
 
   return (
     <li
-      className={`${style.item} ${select && style.itemSelecionado}`}
-      onClick={() =>
-        selectTask({
-          id,
-          tarefa,
-          tempo,
-          select,
-          completed
-        })
-      }
+      className={`${style.item} ${select && style.itemSelecionado} ${
+        completed && style.itemCompletado
+      }`}
+      onClick={() => {
+        if (!completed) {
+          selectTask({
+            id,
+            tarefa,
+            tempo,
+            select,
+            completed
+          })
+        }
+      }}
     >
       <h3>{tarefa}</h3>
       <span>{tempo}</span>
+      {completed && (
+        <span className={style.concluido} aria-label="Tarefa completada"></span>
+      )}
     </li>
   )
 }

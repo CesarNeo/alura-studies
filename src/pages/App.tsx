@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { Form } from '../components/Form'
 import { List } from '../components/List'
 import { Stopwatch } from '../components/Stopwatch'
@@ -20,11 +20,31 @@ function App() {
     )
   }
 
+  const finishTask = useCallback(() => {
+    if (select) {
+      setSelect(undefined)
+
+      setTarefas(oldTasks =>
+        oldTasks.map(task => {
+          if (task.id === select.id) {
+            return {
+              ...task,
+              select: false,
+              completed: true
+            }
+          } else {
+            return task
+          }
+        })
+      )
+    }
+  }, [select])
+
   return (
     <div className={style.AppStyle}>
       <Form setTarefas={setTarefas} />
       <List tasks={tarefas} selectTask={selectTask} />
-      <Stopwatch select={select} />
+      <Stopwatch finishTask={finishTask} select={select} />
     </div>
   )
 }
